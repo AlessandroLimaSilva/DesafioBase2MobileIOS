@@ -1,0 +1,46 @@
+<assembly
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+
+    <!-- <title>Construcao do artefato de teste para execucao na aws device farm</title> -->
+    <!-- <author>Alessandro Lima</author> -->
+    <!-- <email>alessandro.silva@base2.com.br</email> -->
+
+    <id>zip</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>./</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>./</outputDirectory>
+            <includes>
+                <include>/dependency-jars/</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}</directory>
+            <outputDirectory>./DesafioBase2MobileIOS</outputDirectory>
+            <includes>
+                <include>pom.xml</include>
+                <include>serenity.properties</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src</directory>
+            <outputDirectory>./DesafioBase2MobileIOS/src</outputDirectory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
