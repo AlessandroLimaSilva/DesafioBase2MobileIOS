@@ -262,7 +262,7 @@ Este é um projeto de framework de teste de Mobile altamente eficiente, desenvol
 ![Texto alternativo](src/test/resources/readmeImg/aws020.png)
 ####
 #### Pronto Teste finalizdo com sucesso !
-![Texto alternativo](src/test/resources/readmeImg/aws021.png)
+![Texto alternativo](src/test/resources/readmeImg/emu006.png)
 
 </details>
 
