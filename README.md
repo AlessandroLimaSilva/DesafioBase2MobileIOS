@@ -71,7 +71,7 @@ Este é um projeto de framework de teste de Mobile altamente eficiente, desenvol
 <details>
   <summary>Como instalar o MacOS Ventura </summary>
 
-#### [site oficial do Ubuntu](https://dortania.github.io/OpenCore-Install-Guide/).
+#### [site oficial OpenCore](https://dortania.github.io/OpenCore-Install-Guide/).
 </details>
 
 #### OpenJDK 1.8 :
@@ -123,7 +123,6 @@ Este é um projeto de framework de teste de Mobile altamente eficiente, desenvol
 #### [site oficial do developer apple](https://developer.apple.com/documentation/xcode/enabling-developer-mode-on-a-device).
 </details>
 
-#### Usuario root no Ubuntu
 
 ## Como executar o teste no aws device farm
 
@@ -135,29 +134,31 @@ Este é um projeto de framework de teste de Mobile altamente eficiente, desenvol
 ####
 ### Configurando o serenity.yml
 #### Este arquivo é responsavel pela configuração, instalação e execução dos testes no device farm.
-#### Verifique a linha 111 ela deve conter o nome do projeto.
+#### Verifique a linha 146 ela deve conter o nome do projeto.
 #### Exemplo: NomeDoSeuProjeto/pom.xml .
 #### Estamos passando o comando de execução do teste para o mvn junto das capabilites do dispositivo que sera utilizado no teste.
 #### Os valores referentes as capabilities são retornados atraves de variaveis disponibilizadas pelo device farm.
 #### Se voce precisar executar uma tag diferente de automatizado mude o valor da variavel -Dcucumber.filter.tags="@SuaTagAqui".
+#### Pode ser necessario adicionar estas capabilities “appium:bundleId”: “com.app.laymui.stockprice”, “appium:xcodeOrgId”: “Seu nome aqui”, “appium:xcodeSigningId”: “iPhone Developer”
 ````
-- mvn -f DesafioBase2MobileAndroid/pom.xml clean verify -Dwebdriver.driver=appium -Dcucumber.filter.tags="@automatizado" -Dappium.automationName=$PLATFORMNAME -Dappium.platformName=$DEVICEFARM_DEVICE_PLATFORM_NAME -Dappium.app=$DEVICEFARM_APP_PATH -Dappium.platformVersion=$DEVICEFARM_DEVICE_OS_VERSION -Denvironment=staging -Dappium.screenshots.dir=$DEVICEFARM_SCREENSHOT_PATH -Dappium.autoAcceptAlerts=true -Dappium.autoGrantPermissions=true   
+      - mvn -f DesafioBase2MobileIOS/pom.xml clean verify -Dwebdriver.driver=appium -Dcucumber.filter.tags="@automatizado" -Dappium.automationName=$PLATFORMNAME -Denvironment=staging -Dappium.screenshots.dir=$DEVICEFARM_SCREENSHOT_PATH -Dappium.autoAcceptAlerts=true -Dappium.autoGrantPermissions=true -Dappium.platformName=$DEVICEFARM_DEVICE_PLATFORM_NAME -Dappium.app=$DEVICEFARM_APP_PATH -Dappium.udid=$DEVICEFARM_DEVICE_UDID_FOR_APPIUM
+         
 ````
 
 ###
-#### Verifique a linha 112 ela deve conter o nome do projeto junto a pasta em que sera gerado o relatorio.
+#### Verifique a linha 147 ela deve conter o nome do projeto junto a pasta em que sera gerado o relatorio.
 #### Exemplo: NomeDoSeuProjeto/target/site .
 #### Este comando é responsavel por criar a pasta em que o nosso relatorio sera criado.
 ````
-- cp -Rv DesafioBase2MobileAndroid/target/site $DEVICEFARM_LOG_DIR
+- cp -Rv DesafioBase2MobileIOS/target/site $DEVICEFARM_LOG_DIR
 ````
 
 ###
-#### Verifique a linha 123 ela deve conter o caminho da pasta em que sera gerado o relatorio durante o teste.
-#### Exemplo: $DEVICEFARM_LOG_DIR/DesafioBase2MobileAndroid/target/site .
+#### Verifique a linha 160 ela deve conter o caminho da pasta em que sera gerado o relatorio durante o teste.
+#### Exemplo: $DEVICEFARM_LOG_DIR/DesafioBase2MobileIOS/target/site .
 #### Este comando é responsavel por disponibilizar o nosso relatorio para download apos a execução.
 ````
-- $DEVICEFARM_LOG_DIR/DesafioBase2MobileAndroid/target/site
+- $DEVICEFARM_LOG_DIR/DesafioBase2MobileIOS/target/site
 ````
 ###
 ### Configurando o zip.xml
@@ -165,19 +166,18 @@ Este é um projeto de framework de teste de Mobile altamente eficiente, desenvol
 ###
 #### Verifique a linha 32 ela deve conter o nome do diretorio principal do seu projeto antecedendo ./
 ````
-<outputDirectory>./DesafioBase2MobileAndroid</outputDirectory>
+<outputDirectory>./DesafioBase2MobileIOS</outputDirectory>
 ````
 ###
 #### Verifique a linha 40 ela deve conter o nome do diretorio principal do seu projeto antecedendo ./ seguido de /src
 ````
-<outputDirectory>./DesafioBase2MobileAndroid/src</outputDirectory>
+<outputDirectory>./DesafioBase2MobileIOS/src</outputDirectory>
 ````
 ###
 ### Gerando o artefato de teste localmente
 ###
 
-####  abra o terminal do Intellij digite e execute o comando mvn clean package
--DskipTests="true" .
+####  abra o terminal do Intellij execute o comando mvn clean.
 
 ![Texto alternativo](src/test/resources/readmeImg/tt001.png)
 
@@ -194,7 +194,7 @@ Este é um projeto de framework de teste de Mobile altamente eficiente, desenvol
 ![Texto alternativo](src/test/resources/readmeImg/tt003.png)
 
 ###
-#### O artefato esta disponivel em Desafiobase2MobileAndroid/target/zip-with-dependencies.zip
+#### O artefato esta disponivel em DesafioBase2MobileIOS/target/zip-with-dependencies.zip
 ![Texto alternativo](src/test/resources/readmeImg/tt004.png)
 
 ###
@@ -267,7 +267,7 @@ Este é um projeto de framework de teste de Mobile altamente eficiente, desenvol
 </details>
 
 
-## Como executar o teste do Android localmente em dispositivo real ou emulado
+## Como executar o teste do IOS localmente em dispositivo real ou emulado
 
 <details>
   <summary>executando o teste local</summary>
@@ -275,11 +275,11 @@ Este é um projeto de framework de teste de Mobile altamente eficiente, desenvol
 ####
 #### Configurar um dispositivo real
 #### Plugue o cabo usb no seu dispositivo conecte a outra ponta do cabo no entrada USB do seu computador.
-#### No seu dispositivo acesse Configurações > Sobre o dispositivo > Informações do software > Número da versão toque 7 vezes para habilitar o modo desenvolvedor.
+#### No seu dispositivo acesse Ajustes > Privacidade e Segurança > Modo de Desenvolvimento, informe sua e selecione reiniciar, apos reiniciar selecione ativar.
 #### No seu dispositivo acesse Configurações > Opções do desenvolvedor verifique se esta ativado.
-#### [Como Habilitar o Modo Desenvolvedor do Android](https://developer.android.com/studio/debug/dev-options?hl=pt-br).
+#### para verificar as informações necessarias do aparelho, abra o xcode selecione Windows > devices and simulator.  
 ####
-#### Ou inicie o emulador do android.
+#### Ou inicie o emulador do ios.
 ####
 ### Iniciando a execução
 #### Abra um terminal e inicie o appium
@@ -301,7 +301,7 @@ Este é um projeto de framework de teste de Mobile altamente eficiente, desenvol
 ####
 ###
 #### no final dos testes sera gerado o nosso relatorio.
-![Texto alternativo](src/test/resources/readmeImg/emu005.png)
+![Texto alternativo](emu0055src/test/resources/readmeImg/emu005.png)
 ####
 ###
 #### No projeto acesse target/site/serenity/index.html .
