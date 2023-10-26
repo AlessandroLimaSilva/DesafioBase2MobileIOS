@@ -301,7 +301,7 @@ Este é um projeto de framework de teste de Mobile altamente eficiente, desenvol
 ####
 ###
 #### no final dos testes sera gerado o nosso relatorio.
-![Texto alternativo](emu0055src/test/resources/readmeImg/emu005.png)
+![Texto alternativo](src/test/resources/readmeImg/emu005.png)
 ####
 ###
 #### No projeto acesse target/site/serenity/index.html .
