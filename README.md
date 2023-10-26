@@ -287,7 +287,7 @@ Este é um projeto de framework de teste de Mobile altamente eficiente, desenvol
 
 ###
 #### No projeto acesse serenity.properties, informe os dados do dispositivo real ou emulado em que o teste sera executado.
-#### appium.platformVersion = Versão do Android
+#### appium.platformVersion = Versão do ios
 #### appium.deviceName  = Nome do dispositivo
 ![Texto alternativo](src/test/resources/readmeImg/emu002.png)
 
